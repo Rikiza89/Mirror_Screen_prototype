@@ -1,7 +1,7 @@
 """
 Hand-Controlled Desktop UI Prototype
 Uses webcam + MediaPipe to control a virtual desktop interface with hand gestures
-Now includes: Ball Bounce Game with Camera Background!
+Includes: Ball Bounce Game with Camera Background!
 """
 
 import cv2
@@ -550,13 +550,6 @@ def draw_ui(frame, cursor_pos, pinch_detected, pinch_distance, fps, cam_frame, h
     
     cv2.putText(frame, status_text, (20, status_y + 25),
                cv2.FONT_HERSHEY_SIMPLEX, 0.6, COLOR_TEXT, 1)
-    
-    # # Cursor
-    # if cursor_pos:
-    #     cv2.circle(frame, cursor_pos, 12, COLOR_CURSOR, -1)
-    #     cv2.circle(frame, cursor_pos, 14, (255, 255, 255), 2)
-    #     if pinch_detected:
-    #         cv2.circle(frame, cursor_pos, 20, (0, 0, 255), 3)
 
 
 def main():
@@ -591,6 +584,7 @@ def main():
         # Process frame with MediaPipe
         cam_frame_rgb = cv2.cvtColor(cam_frame, cv2.COLOR_BGR2RGB)
         results = hands.process(cam_frame_rgb)
+        
         # Draw hand landmarks on camera frame if enabled
         if state.show_hand_landmarks and results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
@@ -601,16 +595,7 @@ def main():
                     mp_drawing_styles.get_default_hand_landmarks_style(),
                     mp_drawing_styles.get_default_hand_connections_style()
                 )
-                # Draw cursor on camera frame
-        if cursor_pos:
-            # Map cursor back to camera coordinates
-            cam_height, cam_width, _ = cam_frame.shape
-            cam_cursor_x = int((1 - cursor_pos[0] / UI_WIDTH) * cam_width)
-            cam_cursor_y = int((cursor_pos[1] / UI_HEIGHT) * cam_height)
-            cv2.circle(cam_frame, (cam_cursor_x, cam_cursor_y), 12, COLOR_CURSOR, -1)
-            cv2.circle(cam_frame, (cam_cursor_x, cam_cursor_y), 14, (255, 255, 255), 2)
-            if pinch_detected:
-                cv2.circle(cam_frame, (cam_cursor_x, cam_cursor_y), 20, (0, 0, 255), 3)
+
         # Calculate FPS
         current_time = time.time()
         fps = 1 / (current_time - prev_time) if (current_time - prev_time) > 0 else 0
@@ -642,7 +627,14 @@ def main():
             
             # Detect pinch gesture
             pinch_detected, pinch_distance = detect_pinch(hand_landmarks, cam_width, cam_height)
-            
+            # Draw cursor on camera frame NOW
+            cam_cursor_x = int((1 - cursor_pos[0] / UI_WIDTH) * cam_width)
+            cam_cursor_y = int((cursor_pos[1] / UI_HEIGHT) * cam_height)
+            cv2.circle(cam_frame, (cam_cursor_x, cam_cursor_y), 12, COLOR_CURSOR, -1)
+            cv2.circle(cam_frame, (cam_cursor_x, cam_cursor_y), 14, (255, 255, 255), 2)
+            if pinch_detected:
+                cv2.circle(cam_frame, (cam_cursor_x, cam_cursor_y), 20, (0, 0, 255), 3)
+                
             # Handle click (pinch start) - only in UI mode
             if pinch_detected and not prev_pinch and state.can_click():
                 if not game.active:
