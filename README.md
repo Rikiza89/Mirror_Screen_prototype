@@ -43,7 +43,7 @@ https://github.com/user-attachments/assets/your-demo-video.mp4
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/hand-controlled-desktop-ui.git
+git clone https://github.com/Rikiza89/Mirror_Screen_prototype.git
 cd hand-controlled-desktop-ui
 ```
 
@@ -196,7 +196,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Your Name - [@yourhandle](https://twitter.com/yourhandle)
 
-Project Link: [https://github.com/yourusername/hand-controlled-desktop-ui](https://github.com/yourusername/hand-controlled-desktop-ui)
+Project Link: [(https://github.com/Rikiza89/Mirror_Screen_prototype)](https://github.com/Rikiza89/Mirror_Screen_prototype)
 
 ---
 
