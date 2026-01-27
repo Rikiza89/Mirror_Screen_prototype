@@ -371,8 +371,8 @@ def detect_pinch(hand_landmarks, frame_width, frame_height):
 
 def map_to_ui(x, y, cam_width, cam_height):
     """Map camera coordinates to UI coordinates (with flip for mirror effect)"""
-    ui_x = int(x * UI_WIDTH)  # Remove flip
-    # ui_x = int((1 - x) * UI_WIDTH)  # Flip horizontally for mirror effect
+    # ui_x = int(x * UI_WIDTH)  # Remove flip
+    ui_x = int((1 - x) * UI_WIDTH)  # Flip horizontally for mirror effect
     ui_y = int(y * UI_HEIGHT)
     return np.clip(ui_x, 0, UI_WIDTH - 1), np.clip(ui_y, 0, UI_HEIGHT - 1)
 
@@ -408,53 +408,53 @@ def draw_game_ui(frame, cursor_pos, fps, cam_frame, hand_landmarks_list):
         frame[:] = bg
     else:
         frame[:] = (20, 20, 20)
-    
+
     # Draw all balls
     for ball in game.balls:
         ball.draw(frame)
-    
+
     # Draw bar if two hands detected
     if game.bar_pos:
         x1, y1, x2, y2 = game.bar_pos
         # Draw bar with gradient effect
         cv2.line(frame, (x1, y1), (x2, y2), (0, 255, 255), BAR_THICKNESS)
         cv2.line(frame, (x1, y1), (x2, y2), (255, 255, 255), 3)
-        
         # Draw palm indicators
         cv2.circle(frame, (x1, y1), 15, (0, 200, 255), -1)
         cv2.circle(frame, (x2, y2), 15, (0, 200, 255), -1)
-    
+
     # Draw game HUD
     time_remaining = game.get_time_remaining()
-    
+
     # Top bar with stats
     overlay = frame.copy()
     cv2.rectangle(overlay, (0, 0), (UI_WIDTH, 80), (40, 40, 40), -1)
     cv2.addWeighted(overlay, 0.7, frame, 0.3, 0, frame)
-    
+
     # Score
     cv2.putText(frame, f"SCORE: {game.score}", (20, 50),
-               cv2.FONT_HERSHEY_BOLD, 1.2, (0, 255, 0), 3)
-    
+                cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0), 3)
+
     # Combo
     combo_color = (0, 255, 255) if game.combo > 0 else (100, 100, 100)
     cv2.putText(frame, f"COMBO: {game.combo}x", (350, 50),
-               cv2.FONT_HERSHEY_BOLD, 1.2, combo_color, 3)
-    
+                cv2.FONT_HERSHEY_SIMPLEX, 1.2, combo_color, 3)
+
     # Time
     time_color = (0, 255, 0) if time_remaining > 10 else (0, 0, 255)
     cv2.putText(frame, f"TIME: {int(time_remaining)}s", (700, 50),
-               cv2.FONT_HERSHEY_BOLD, 1.2, time_color, 3)
-    
+                cv2.FONT_HERSHEY_SIMPLEX, 1.2, time_color, 3)
+
     # Balls remaining
     balls_left = TOTAL_BALLS - game.balls_spawned + len(game.balls)
     cv2.putText(frame, f"BALLS: {balls_left}", (1000, 50),
-               cv2.FONT_HERSHEY_BOLD, 1.2, (255, 200, 0), 3)
-    
+                cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 200, 0), 3)
+
     # Instructions if no bar detected
     if not game.bar_pos:
-        cv2.putText(frame, "SHOW BOTH HANDS TO CREATE BAR!", (UI_WIDTH//2 - 300, UI_HEIGHT//2),
-                   cv2.FONT_HERSHEY_BOLD, 1.0, (0, 0, 255), 2)
+        cv2.putText(frame, "SHOW BOTH HANDS TO CREATE BAR!",
+                    (UI_WIDTH//2 - 300, UI_HEIGHT//2),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 2)
 
 
 def draw_game_over_ui(frame):
@@ -463,26 +463,26 @@ def draw_game_over_ui(frame):
     overlay = frame.copy()
     cv2.rectangle(overlay, (0, 0), (UI_WIDTH, UI_HEIGHT), (0, 0, 0), -1)
     cv2.addWeighted(overlay, 0.7, frame, 0.3, 0, frame)
-    
+
     # Game Over text
     cv2.putText(frame, "GAME OVER!", (UI_WIDTH//2 - 200, 150),
-               cv2.FONT_HERSHEY_BOLD, 2.0, (0, 0, 255), 4)
-    
+                cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0, 0, 255), 4)
+
     # Stats
     y_offset = 280
     cv2.putText(frame, f"Final Score: {game.score}", (UI_WIDTH//2 - 150, y_offset),
-               cv2.FONT_HERSHEY_BOLD, 1.5, (0, 255, 0), 3)
-    
+                cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 0), 3)
+
     cv2.putText(frame, f"Max Combo: {game.max_combo}x", (UI_WIDTH//2 - 150, y_offset + 80),
-               cv2.FONT_HERSHEY_BOLD, 1.5, (0, 255, 255), 3)
-    
+                cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 255, 255), 3)
+
     # Buttons
     play_again_btn = Button(UI_WIDTH//2 - 250, 450, 200, 60, "Play Again", game.start_game)
     exit_btn = Button(UI_WIDTH//2 + 50, 450, 200, 60, "Exit to Menu", game.reset_game)
-    
+
     play_again_btn.draw(frame)
     exit_btn.draw(frame)
-    
+
     return [play_again_btn, exit_btn]
 
 
