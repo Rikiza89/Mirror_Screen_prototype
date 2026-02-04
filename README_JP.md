@@ -28,10 +28,6 @@ Webカメラとハンドジェスチャーで完全に操作できるコンピ�
 - リアルタイム統計表示（スコア、コンボ、時間、残りボール数）
 - 最終統計付きのゲームオーバー画面
 
-## デモ
-
-https://github.com/user-attachments/assets/your-demo-video.mp4
-
 ## インストール
 
 ### 前提条件
@@ -43,8 +39,8 @@ https://github.com/user-attachments/assets/your-demo-video.mp4
 
 1. リポジトリをクローン：
 ```bash
-git clone https://github.com/yourusername/hand-controlled-desktop-ui.git
-cd hand-controlled-desktop-ui
+git clone https://github.com/Rikiza89/Mirror_Screen_prototype.git
+cd Mirror_Screen_prototype
 ```
 
 2. 仮想環境を作成（推奨）：
@@ -148,7 +144,7 @@ BAR_THICKNESS = 20
 ## プロジェクト構成
 
 ```
-hand-controlled-desktop-ui/
+Mirror_Screen_prototype/
 ├── hand_ui_prototype.py    # メインアプリケーション
 ├── requirements.txt         # Python依存関係
 ├── README.md               # 英語版README
@@ -195,9 +191,7 @@ hand-controlled-desktop-ui/
 
 ## 作成者
 
-あなたの名前 - [@yourhandle](https://twitter.com/yourhandle)
-
-プロジェクトリンク: [https://github.com/yourusername/hand-controlled-desktop-ui](https://github.com/yourusername/hand-controlled-desktop-ui)
+プロジェクトリンク: [https://github.com/Rikiza89/Mirror_Screen_prototype](https://github.com/Rikiza89/Mirror_Screen_prototype)
 
 ---
 
