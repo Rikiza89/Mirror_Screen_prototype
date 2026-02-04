@@ -28,10 +28,6 @@ A computer vision-based desktop interface controlled entirely by hand gestures u
 - Real-time stats display (score, combo, time, balls remaining)
 - Game over screen with final statistics
 
-## Demo
-
-https://github.com/user-attachments/assets/your-demo-video.mp4
-
 ## Installation
 
 ### Prerequisites
@@ -193,8 +189,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Inspired by gesture-based interaction research
 
 ## Author
-
-Your Name - [@yourhandle](https://twitter.com/yourhandle)
 
 Project Link: [(https://github.com/Rikiza89/Mirror_Screen_prototype)](https://github.com/Rikiza89/Mirror_Screen_prototype)
 
